@@ -1,5 +1,8 @@
 name: Daily News Collection
 
+permissions:
+  contents: write
+  
 on:
   schedule:
     # 毎日18:00 JST (UTC 9:00) に実行
