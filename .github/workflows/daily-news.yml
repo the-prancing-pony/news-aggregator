@@ -1,0 +1,36 @@
+name: Daily News Collection
+
+on:
+  schedule:
+    # 毎日18:00 JST (UTC 9:00) に実行
+    - cron: '0 9 * * *'
+  workflow_dispatch:  # 手動実行も可能
+
+jobs:
+  collect-news:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: リポジトリをチェックアウト
+      uses: actions/checkout@v3
+    
+    - name: Python環境のセットアップ
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: 必要なライブラリをインストール
+      run: |
+        pip install feedparser requests
+    
+    - name: ニュース収集実行
+      run: |
+        python news_collector.py
+    
+    - name: 結果をリポジトリに保存
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add news_output.json
+        git commit -m "Update news data - $(date)" || exit 0
+        git push
