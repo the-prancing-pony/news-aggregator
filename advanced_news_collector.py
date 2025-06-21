@@ -183,10 +183,10 @@ class NewsCollector:
             'articles': self.articles
         }
         
-        with open('news_output.json', 'w', encoding='utf-8') as f:
+        with open('data_cache.json', 'w', encoding='utf-8') as f:
             json.dump(output_data, f, indent=2, ensure_ascii=False)
         
-        print(f"💾 結果を保存しました: news_output.json")
+        print(f"💾 結果を保存しました: data_cache.json")
         
         # サマリー表示
         print("\n📊 収集サマリー:")
